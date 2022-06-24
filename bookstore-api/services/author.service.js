@@ -1,4 +1,5 @@
 import AuthorRepository from "../repositories/author.repository.js";
+import bookRepository from "../repositories/book.repository.js";
 
 async function createAuthor(author) {
   await AuthorRepository.createAuthor(author);
@@ -9,15 +10,14 @@ async function updateAuthor(author) {
 }
 
 async function deleteAuthor(id) {
-  // const animal = await AnimalRepository.getAnimalByAuthorId(id);
-  // if (animal) {
-  //   throw new Error(
-  //     "Forbidden deletion! There are animals registered for this author!"
-  //   );
-  // } else {
-  //   return await AuthorRepository.deleteAuthor(id);
-  // }
-  return await AuthorRepository.deleteAuthor(id);
+  const books = await bookRepository.getBookByAuthorId(id);
+  if (books.length !== 0) {
+    throw new Error(
+      "Forbidden deletion! There are books registered for this author!"
+    );
+  } else {
+    return await AuthorRepository.deleteAuthor(id);
+  }
 }
 
 async function getAuthors() {

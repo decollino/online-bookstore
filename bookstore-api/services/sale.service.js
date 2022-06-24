@@ -1,7 +1,16 @@
+import BookRepository from "../repositories/book.repository.js";
 import SaleRepository from "../repositories/sale.repository.js";
 
 async function createSale(sale) {
-  await SaleRepository.createSale(sale);
+  const book = await BookRepository.getBook(sale.livroId);
+  if (book.dataValues.estoque > 0) {
+    sale = { ...sale, valor: book.dataValues.valor };
+    await SaleRepository.createSale(sale);
+    book.dataValues.estoque = book.dataValues.estoque - 1;
+    await BookRepository.updateBook(book.dataValues);
+  } else {
+    throw new Error("The book's stock is insufficient to create the sale!");
+  }
 }
 
 async function updateSale(sale) {
@@ -20,7 +29,13 @@ async function deleteSale(id) {
   return await SaleRepository.deleteSale(id);
 }
 
-async function getSales() {
+async function getSales(clientId, bookId) {
+  if (clientId) {
+    return await SaleRepository.getSaleByClientId(clientId);
+  }
+  if (bookId) {
+    return await SaleRepository.getSaleByBookId(bookId);
+  }
   return await SaleRepository.getSales();
 }
 

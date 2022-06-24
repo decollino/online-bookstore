@@ -1,4 +1,5 @@
 import ClientRepository from "../repositories/client.repository.js";
+import SaleRepository from "../repositories/sale.repository.js";
 
 async function createClient(client) {
   await ClientRepository.createClient(client);
@@ -9,8 +10,8 @@ async function updateClient(client) {
 }
 
 async function deleteClient(id) {
-  const sale = await SaleRepository.getSaleByClientId(id);
-  if (sale) {
+  const sales = await SaleRepository.getSaleByClientId(id);
+  if (sales.length !== 0) {
     throw new Error(
       "Forbidden deletion! There are sales registered for this client!"
     );

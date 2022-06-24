@@ -49,7 +49,7 @@ async function deleteBook(req, res, next) {
 
 async function getBooks(req, res, next) {
   try {
-    res.send(await BookService.getBooks());
+    res.send(await BookService.getBooks(req.query.authorId));
     logger.info(`GET /books - ${JSON.stringify(book)}`);
   } catch (err) {
     next(err);
