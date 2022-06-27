@@ -29,12 +29,18 @@ async function deleteSale(id) {
   return await SaleRepository.deleteSale(id);
 }
 
-async function getSales(clientId, bookId) {
+async function getSales(clientId, bookId, authorId) {
   if (clientId) {
     return await SaleRepository.getSaleByClientId(clientId);
   }
   if (bookId) {
     return await SaleRepository.getSaleByBookId(bookId);
+  }
+  if (authorId) {
+    const books = await BookRepository.getBookByAuthorId(authorId);
+    const bookIdByAuthor = books.map((book) => book.dataValues.livroId);
+    // return await SaleRepository.getSaleByBookId(bookIdByAuthor);
+    return await SaleRepository.getSaleByAuthorId(bookIdByAuthor);
   }
   return await SaleRepository.getSales();
 }

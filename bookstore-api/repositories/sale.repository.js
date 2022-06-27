@@ -1,3 +1,4 @@
+import Author from "../models/author.model.js";
 import Book from "../models/book.model.js";
 import Client from "../models/client.model.js";
 import Sale from "../models/sale.model.js";
@@ -90,6 +91,23 @@ async function getSaleByBookId(id) {
   }
 }
 
+async function getSaleByAuthorId(bookIdByAuthor) {
+  try {
+    return await Sale.findAll({
+      where: {
+        livroId: bookIdByAuthor,
+      },
+      include: [
+        {
+          model: Book,
+        },
+      ],
+    });
+  } catch (err) {
+    throw err;
+  }
+}
+
 export default {
   createSale,
   updateSale,
@@ -98,4 +116,5 @@ export default {
   getSale,
   getSaleByClientId,
   getSaleByBookId,
+  getSaleByAuthorId,
 };
