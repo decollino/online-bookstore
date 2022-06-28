@@ -64,7 +64,7 @@ async function deleteClient(req, res, next) {
 async function getClients(req, res, next) {
   try {
     res.send(await ClientService.getClients());
-    logger.info(`GET /clients - ${JSON.stringify(client)}`);
+    logger.info(`GET /clients`);
   } catch (err) {
     next(err);
   }
@@ -73,7 +73,7 @@ async function getClients(req, res, next) {
 async function getClient(req, res, next) {
   try {
     res.send(await ClientService.getClient(req.params.id));
-    logger.info(`GET /clients - ${JSON.stringify(client)}`);
+    logger.info(`GET /clients`);
   } catch (err) {
     next(err);
   }
