@@ -53,10 +53,38 @@ async function getClient(id) {
   }
 }
 
+async function validateClientsUserPassword(username, password) {
+  try {
+    console.log("username: ", username);
+    console.log("password: ", password);
+    let clients = await Client.findOne({
+      where: {
+        email: username,
+        senha: password,
+      },
+    });
+    if (clients) {
+      console.log("true");
+      return true;
+    } else {
+      console.log("false");
+      return false;
+    }
+    // const clientUsernamePassword = clients.map((client) => {
+    //   return [client.dataValues.email, client.dataValues.senha];
+    // });
+    // console.log("clientUsernamePassword: ", clientUsernamePassword);
+    // return clientUsernamePassword;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export default {
   createClient,
   updateClient,
   deleteClient,
   getClients,
   getClient,
+  validateClientsUserPassword,
 };
