@@ -3,6 +3,7 @@ import BookService from "../services/book.service.js";
 async function createBook(req, res, next) {
   try {
     let book = req.body;
+    //book.estoque !== null
     if (!book.nome || !book.valor || !book.estoque || !book.autorId) {
       throw new Error("The name, value, stock and author id are requerired!");
     }

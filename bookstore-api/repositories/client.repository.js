@@ -53,6 +53,30 @@ async function getClient(id) {
   }
 }
 
+// test this function
+// async function getClient(id) {
+//   try {
+//     return await Client.findByPk(id, {
+//       attributes: { exclude: ["senha"] },
+//     });
+//   } catch (err) {
+//     throw err;
+//   }
+// }
+
+async function getClientByEmail(email) {
+  try {
+    return await Client.findOne({
+      where: {
+        email: email,
+      },
+      raw: true,
+    });
+  } catch (err) {
+    throw err;
+  }
+}
+
 async function validateClientsUserPassword(username, password) {
   try {
     console.log("username: ", username);
@@ -70,11 +94,6 @@ async function validateClientsUserPassword(username, password) {
       console.log("false");
       return false;
     }
-    // const clientUsernamePassword = clients.map((client) => {
-    //   return [client.dataValues.email, client.dataValues.senha];
-    // });
-    // console.log("clientUsernamePassword: ", clientUsernamePassword);
-    // return clientUsernamePassword;
   } catch (err) {
     throw err;
   }
@@ -87,4 +106,5 @@ export default {
   getClients,
   getClient,
   validateClientsUserPassword,
+  getClientByEmail,
 };
