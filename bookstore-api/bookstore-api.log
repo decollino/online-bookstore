@@ -1,0 +1,19 @@
+2022-06-30T17:27:19.054Z [bookstore-api] error: GET  - Cannot read properties of null (reading 'dataValues')
+2022-06-30T17:27:46.601Z [bookstore-api] error: GET  - author is not defined
+2022-06-30T17:27:59.565Z [bookstore-api] error: GET  - author is not defined
+2022-06-30T17:29:32.077Z [bookstore-api] info: GET /books
+2022-06-30T18:25:59.590Z [bookstore-api] info: GET /books
+2022-06-30T18:27:09.655Z [bookstore-api] info: GET /books
+2022-06-30T18:27:31.012Z [bookstore-api] info: GET /books
+2022-06-30T18:29:12.300Z [bookstore-api] info: GET /books
+2022-06-30T18:34:00.815Z [bookstore-api] info: GET /clients
+2022-06-30T18:34:50.420Z [bookstore-api] info: GET /clients
+2022-06-30T18:35:06.958Z [bookstore-api] info: GET /clients
+2022-06-30T18:35:12.374Z [bookstore-api] info: GET /clients
+2022-06-30T18:35:15.937Z [bookstore-api] info: GET /clients
+2022-06-30T18:35:18.787Z [bookstore-api] info: GET /clients
+2022-06-30T18:35:46.265Z [bookstore-api] info: GET /clients
+2022-06-30T18:42:32.978Z [bookstore-api] info: PUT /client - {"clienteId":2,"nome":"Jucelino Aba 77","email":"deco@gmail.com","telefone":"17 99201-7777","endereco":"Rua tal tal 7"}
+2022-06-30T18:52:16.039Z [bookstore-api] info: GET /clients
+2022-06-30T18:52:31.307Z [bookstore-api] info: GET /clients
+2022-06-30T18:53:03.799Z [bookstore-api] info: GET /clients

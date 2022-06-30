@@ -1,5 +1,6 @@
 import ClientService from "../services/client.service.js";
 import validator from "email-validator";
+import { getRole } from "./auth.controller.js";
 
 async function createClient(req, res, next) {
   try {
@@ -43,6 +44,12 @@ async function updateClient(req, res, next) {
         "The id, name, email, password, phone and address are requerired!"
       );
     }
+    if (getRole(req.auth.user) === "client") {
+      const cli = await ClientService.getClientByEmail(req.auth.user);
+      if (parseInt(cli.clienteId) !== client.clienteId) {
+        throw new Error("Client cannot update another client's data!");
+      }
+    }
     client = await ClientService.updateClient(client);
     res.send(client);
     logger.info(`PUT /client - ${JSON.stringify(client)}`);
@@ -64,7 +71,7 @@ async function deleteClient(req, res, next) {
 async function getClients(req, res, next) {
   try {
     res.send(await ClientService.getClients());
-    logger.info(`GET /clients - ${JSON.stringify(client)}`);
+    logger.info(`GET /clients`);
   } catch (err) {
     next(err);
   }
@@ -73,7 +80,7 @@ async function getClients(req, res, next) {
 async function getClient(req, res, next) {
   try {
     res.send(await ClientService.getClient(req.params.id));
-    logger.info(`GET /clients - ${JSON.stringify(client)}`);
+    logger.info(`GET /clients`);
   } catch (err) {
     next(err);
   }

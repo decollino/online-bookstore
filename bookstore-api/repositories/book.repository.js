@@ -1,3 +1,4 @@
+import Author from "../models/author.model.js";
 import Book from "../models/book.model.js";
 
 async function createBook(book) {
@@ -53,10 +54,28 @@ async function getBook(id) {
   }
 }
 
+async function getBookByAuthorId(id) {
+  try {
+    return await Book.findAll({
+      where: {
+        autorId: id,
+      },
+      include: [
+        {
+          model: Author,
+        },
+      ],
+    });
+  } catch (err) {
+    throw err;
+  }
+}
+
 export default {
   createBook,
   updateBook,
   deleteBook,
   getBooks,
   getBook,
+  getBookByAuthorId,
 };
