@@ -1,5 +1,6 @@
 import ClientService from "../services/client.service.js";
 import validator from "email-validator";
+import { getRole } from "./auth.controller.js";
 
 async function createClient(req, res, next) {
   try {
@@ -42,6 +43,12 @@ async function updateClient(req, res, next) {
       throw new Error(
         "The id, name, email, password, phone and address are requerired!"
       );
+    }
+    if (getRole(req.auth.user) === "client") {
+      const cli = await ClientService.getClientByEmail(req.auth.user);
+      if (parseInt(cli.clienteId) !== client.clienteId) {
+        throw new Error("Client cannot update another client's data!");
+      }
     }
     client = await ClientService.updateClient(client);
     res.send(client);
